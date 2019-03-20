@@ -7,6 +7,18 @@ set clipboard=unnamedplus
 " Remove trailing whitespaces when w
 autocmd BufWritePre * %s/\s\+$//e
 
+" Terminal emulator config
+set splitbelow
+tnoremap <C-h> <C-W><C-h>
+tnoremap <C-j> <C-W><C-j>
+tnoremap <C-k> <C-W><C-k>
+tnoremap <C-l> <C-W><C-l>
+tnoremap <C-u> <C-\><C-N><C-u>
+tnoremap <C-d> <C-\><C-N><C-d>
+
+" Misc shortcuts
+noremap <LocalLeader>mm :vertical bo terminal make<CR>
+
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -18,6 +30,7 @@ Plugin 'VundleVim/Vundle.vim'
 
 " General
 Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'tpope/vim-fugitive'
 Plugin 'benmills/vimux'
 Plugin 'kien/ctrlp.vim'
 let g:ctrlp_custom_ignore = 'jpg\|jpeg\|png\|git'
@@ -48,20 +61,21 @@ Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
 
 " C++ plugins
-" Plugin 'rip-rip/clang_complete'
 Plugin 'octol/vim-cpp-enhanced-highlight'
 Plugin 'a.vim'
 
+" python
+Plugin 'broesler/jupyter-vim'
+
 " R plugins
 Plugin 'jalvesaq/nvim-r'
-let R_source = '~/.vim/bundle/nvim-r/R/tmux_split.vim'
-let R_in_buffer = 0
 let R_assign = 0
 let R_nvim_wd = -1
 let Rout_more_colors = 1
-let R_applescript = 0
-let R_show_args = 1
-let R_show_arg_help = 1
+let R_complete = 1
+let R_args_in_stline = 1
+let R_show_args = 0
+let R_show_arg_help = 0
 let R_specialplot = 1
 nmap <silent> <LocalLeader>ih :call RAction("head", "@,48-57,_,.")<CR>
 nmap <silent> <LocalLeader>it :call RAction("tail", "@,48-57,_,.")<CR>
