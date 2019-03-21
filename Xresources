@@ -58,21 +58,26 @@
 URxvt.scrollBar: off
 URxvt.font: xft:Hack:pixelsize=16
 URxvt.boldFont: xft:Hack:bold:pixelsize=16
+URxvt.iso14755 : false
 
 !Copy to clipboard using Ctrl-Shift-c
-URxvt.perl-ext-common:  default,clipboard,keyboard-select,fullscreen,url-select,font-size,tabbedex
-URxvt.iso14755 : false
+URxvt.perl-ext-common:  default,clipboard,keyboard-select,fullscreen,font-size, matcher
 URxvt.clipboard.autocopy: true
-URxvt.keysym.C-C: perl:clipboard:copy
-URxvt.keysym.C-V: perl:clipboard:paste
+URxvt.urlLauncher:      /usr/bin/chromium-browser
+URxvt.matcher.button:  1
+URxvt.underlineURLs: true
 
-URxvt.keysym.C-Z:     perl:font-size:increase
-URxvt.keysym.C-X:   perl:font-size:decrease
+URxvt.keysym.C-Z:      perl:font-size:increase
+URxvt.keysym.C-X:      perl:font-size:decrease
 URxvt.keysym.C-S-Up:   perl:font-size:incglobal
 URxvt.keysym.C-S-Down: perl:font-size:decglobal
+URxvt.keysym.C-C:      perl:clipboard:copy
+URxvt.keysym.C-V:      perl:clipboard:paste
 
 Xft.dpi:        96
 Xft.antialias:  true
 Xft.rgba:       rgba
 Xft.hinting:    true
 Xft.hintstyle:  hintslight
+URxvt.depth: 32
+URxvt*background: rgba:0000/002b/0036/cccc

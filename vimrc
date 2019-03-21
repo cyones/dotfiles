@@ -86,9 +86,6 @@ map <silent> <LocalLeader>pd :call g:SendCmdToR("library(devtools); devtools::do
 map <silent> <LocalLeader>pb :call g:SendCmdToR("library(devtools); devtools::build()")<CR>
 map <silent> <LocalLeader>pc :call g:SendCmdToR("library(devtools); devtools::check()")<CR>
 
-" Other filetypes
-Plugin 'chrisbra/csv.vim'
-
 call vundle#end()
 
 set list lcs=tab:\|\

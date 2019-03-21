@@ -6,11 +6,11 @@ set $alt Mod1
 font pango: Noto Sans 11
 
 #autostart
-exec --no-startup-id hsetroot -center ~/.wallpaper.png
+exec --no-startup-id ~/.scripts/set_wallpaper
 exec --no-startup-id compton -b
-exec --no-startup-id insync start
-exec --no-startup-id xautolock -time 10 -locker 'lockscreen'
+exec --no-startup-id xautolock -time 10 -locker 'i3exit lock'
 exec --no-startup-id setxkbmap -layout es
+exec --no-startup-id insync start
 
 # start a terminal
 bindsym $super+Return exec urxvt
@@ -20,6 +20,9 @@ bindsym $super+space exec i3-dmenu-desktop --dmenu="dmenu -i -fn 'Noto Sans:size
 
 # common apps keybinds
 bindsym $super+Shift+l exec lockscreen
+
+# screenshots
+bindsym Print exec spectacle
 
 # volume
 bindsym XF86AudioRaiseVolume exec amixer -q -D pulse sset Master 5%+; exec pkill -RTMIN+10 i3blocks
@@ -45,9 +48,8 @@ bindsym $super+Control+k move down
 bindsym $super+Control+j move up
 bindsym $super+Control+l move right
 
-# split in horizontal orientation
+# split orientation
 bindsym $super+Shift+h split h
-# split in vertical orientation
 bindsym $super+Shift+v split v
 
 # change container layout split
@@ -84,7 +86,7 @@ bindsym $super+Shift+0 move container to workspace 0
 bindsym $super+Shift+r restart
 
 # exit i3
-bindsym $super+Shift+q exec "i3-nagbar -t warning -m 'Really, exit?' -b 'Yes' 'i3-msg exit'"
+bindsym $super+Shift+q exec "i3-nagbar -t warning -m 'Shutdown?' -b 'Yes' 'i3-msg exit'"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -112,10 +114,24 @@ bar {
         status_command i3blocks
 }
 
+set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
+mode "$mode_system" {
+    bindsym l exec --no-startup-id i3exit lock, mode "default"
+    bindsym e exec --no-startup-id i3exit logout, mode "default"
+    bindsym s exec --no-startup-id i3exit suspend, mode "default"
+    bindsym h exec --no-startup-id i3exit hibernate, mode "default"
+    bindsym r exec --no-startup-id i3exit reboot, mode "default"
+    bindsym Shift+s exec --no-startup-id i3exit shutdown, mode "default"
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $super+Shift+p mode "$mode_system"
 
 # colour of border, background, text, indicator, and child_border
 client.focused			#bf616a #2f343f #d8dee8 #bf616a #d8dee8
-client.focused_inactive	#2f343f #2f343f #d8dee8 #2f343f #2f343f
+client.focused_inactive		#2f343f #2f343f #d8dee8 #2f343f #2f343f
 client.unfocused		#2f343f #2f343f #d8dee8 #2f343f #2f343f
 client.urgent			#2f343f #2f343f #d8dee8 #2f343f #2f343f
 client.placeholder		#2f343f #2f343f #d8dee8 #2f343f #2f343f
