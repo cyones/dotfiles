@@ -88,7 +88,7 @@ fi
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
-
+alias del='trash-put'
 
 autoload -U compinit promptinit
 compinit
@@ -97,3 +97,8 @@ promptinit
 
 zstyle ':completion::complete:*' use-cache 1
 
+# If not running interactively, do not do anything
+[[ $- != *i* ]] && return
+# Not start tmux on tty1
+[[ $(tty) == /dev/tty1 ]] && return
+[[ -z "$TMUX" ]] && exec tmux new-session -A -s main

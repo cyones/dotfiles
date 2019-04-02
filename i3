@@ -8,15 +8,18 @@ font pango: Noto Sans 11
 #autostart
 exec --no-startup-id ~/.scripts/set_wallpaper
 exec --no-startup-id compton -b
-exec --no-startup-id xautolock -time 10 -locker 'i3exit lock'
+exec --no-startup-id redshift
+exec --no-startup-id nm-applet
+exec --no-startup-id xautolock -time 10 -locker '~/.scripts/i3exit lock'
 exec --no-startup-id setxkbmap -layout es
+exec --no-startup-id xrdb -load ~/.Xresources
 exec --no-startup-id insync start
 
 # start a terminal
 bindsym $super+Return exec urxvt
 
 # start dmenu (a program launcher)
-bindsym $super+space exec i3-dmenu-desktop --dmenu="dmenu -i -fn 'Noto Sans:size=10'"
+bindsym $super+space exec i3-dmenu-desktop --dmenu="dmenu -i -fn 'Noto Sans:size=12'"
 
 # common apps keybinds
 bindsym $super+Shift+l exec lockscreen
@@ -48,6 +51,12 @@ bindsym $super+Control+k move down
 bindsym $super+Control+j move up
 bindsym $super+Control+l move right
 
+# resize window (you can also use the mouse for that)
+bindsym $super+y resize shrink width 5 px or 5 ppt
+bindsym $super+u resize grow height 5 px or 5 ppt
+bindsym $super+i resize shrink height 5 px or 5 ppt
+bindsym $super+o resize grow width 5 px or 5 ppt
+
 # split orientation
 bindsym $super+Shift+h split h
 bindsym $super+Shift+v split v
@@ -56,7 +65,7 @@ bindsym $super+Shift+v split v
 bindsym $super+s layout toggle split
 bindsym $super+t layout tabbed
 bindsym $super+f fullscreen toggle
-bindsym $super+m floating toggle
+bindsym $super+d floating toggle
 
 # switch to workspace
 bindsym $super+1 workspace 1
@@ -88,16 +97,6 @@ bindsym $super+Shift+r restart
 # exit i3
 bindsym $super+Shift+q exec "i3-nagbar -t warning -m 'Shutdown?' -b 'Yes' 'i3-msg exit'"
 
-# resize window (you can also use the mouse for that)
-mode "resize" {
-        bindsym Left resize shrink width 5 px or 5 ppt
-        bindsym Down resize grow height 5 px or 5 ppt
-        bindsym Up resize shrink height 5 px or 5 ppt
-        bindsym Right resize grow width 5 px or 5 ppt
-        bindsym Return mode "default"
-	bindsym Escape mode "default"
-}
-bindsym $super+r mode "resize"
 
 # panel
 bar {
@@ -106,9 +105,9 @@ bar {
 	colors {
         background #2f343f
         separator #4b5262
-        focused_workspace	#2f343f	#bf616a	#d8dee8
-        active_workspace	#2f343f	#2f343f	#d8dee8
-        inactive_workspace	#2f343f	#2f343f	#d8dee8
+        focused_workspace	#2f343f	#e7e8e9	#e7e8e9
+        active_workspace	#2f343f	#2f343f	#e7e8e9
+        inactive_workspace	#2f343f	#2f343f	#e7e8e9
         urgent_workspace	#2f343f	#ebcb8b	#2f343f
     }
         status_command i3blocks
@@ -116,12 +115,12 @@ bar {
 
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
-    bindsym l exec --no-startup-id i3exit lock, mode "default"
-    bindsym e exec --no-startup-id i3exit logout, mode "default"
-    bindsym s exec --no-startup-id i3exit suspend, mode "default"
-    bindsym h exec --no-startup-id i3exit hibernate, mode "default"
-    bindsym r exec --no-startup-id i3exit reboot, mode "default"
-    bindsym Shift+s exec --no-startup-id i3exit shutdown, mode "default"
+    bindsym l exec --no-startup-id ~/.scripts/i3exit lock, mode "default"
+    bindsym e exec --no-startup-id ~/.scripts/i3exit logout, mode "default"
+    bindsym s exec --no-startup-id ~/.scripts/i3exit suspend, mode "default"
+    bindsym h exec --no-startup-id ~/.scripts/i3exit hibernate, mode "default"
+    bindsym r exec --no-startup-id ~/.scripts/i3exit reboot, mode "default"
+    bindsym Shift+s exec --no-startup-id ~/.scripts/i3exit shutdown, mode "default"
 
     # back to normal: Enter or Escape
     bindsym Return mode "default"
@@ -130,13 +129,14 @@ mode "$mode_system" {
 bindsym $super+Shift+p mode "$mode_system"
 
 # colour of border, background, text, indicator, and child_border
-client.focused			#bf616a #2f343f #d8dee8 #bf616a #d8dee8
-client.focused_inactive		#2f343f #2f343f #d8dee8 #2f343f #2f343f
-client.unfocused		#2f343f #2f343f #d8dee8 #2f343f #2f343f
-client.urgent			#2f343f #2f343f #d8dee8 #2f343f #2f343f
-client.placeholder		#2f343f #2f343f #d8dee8 #2f343f #2f343f
+client.focused			#e7e8e9 #2f343f #e7e8e9 #e7e8e9 #e7e8e9
+client.focused_inactive		#2f343f #2f343f #e7e8e9 #2f343f #2f343f
+client.unfocused		#2f343f #2f343f #e7e8e9 #2f343f #2f343f
+client.urgent			#2f343f #2f343f #e7e8e9 #2f343f #2f343f
+client.placeholder		#2f343f #2f343f #e7e8e9 #2f343f #2f343f
 client.background		#2f343f
 
 hide_edge_borders smart
+default_border pixel 8
 workspace_auto_back_and_forth yes
 force_display_urgency_hint 500 ms

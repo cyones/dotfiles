@@ -65,7 +65,7 @@ Plugin 'octol/vim-cpp-enhanced-highlight'
 Plugin 'a.vim'
 
 " python
-Plugin 'broesler/jupyter-vim'
+Plugin 'python-mode/python-mode'
 
 " R plugins
 Plugin 'jalvesaq/nvim-r'
